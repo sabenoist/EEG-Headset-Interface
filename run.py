@@ -58,8 +58,10 @@ def read_settings(args):
 	else:
 		print ("Logging Disabled.")
 
+	init_board(args)
 
-def create_board(args):
+
+def init_board(args):
 	global board
 
 	print ("\n------- INSTANTIATING BOARD -------")

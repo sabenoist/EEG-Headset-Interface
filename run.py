@@ -6,6 +6,7 @@ import string
 import sys
 import threading
 import time
+import openbci.ganglion as bci
 
 from yapsy.PluginManager import PluginManager
 
@@ -31,32 +32,32 @@ def read_settings(args):
 	if args.board == "cyton":
 		print ("Board type: OpenBCI Cyton (v3 API)")
 		from openbci import cyton as bci
-	elif args.board == "ganglion":
+	else:
 		print ("Board type: OpenBCI Ganglion")
-		import openbci.ganglion as bci
 
 	#read physical USB-port
 	if "AUTO" == args.port.upper():
-		print("Will try do auto-detect board's port. Set it manually with '--port' if it goes wrong.")
+		print("Port: Auto-detect")
 		args.port = None
 	else:
 		print("Port: ", args.port)
 
 	#read notch filtering
-	print ("Notch filtering:" + str(args.filtering))
+	print ("Notch filtering: " + str(args.filtering))
 
 	#read daisy mode
-	print ("Daisy mode:" + str(args.daisy))
+	print ("Daisy mode: " + str(args.daisy))
 
 	#read logging
 	if args.log:
-		print ("Logging Enabled: log.txt")
+		print ("Logging: Enabled > log.txt")
+
 		logging.basicConfig(filename="log.txt", format='%(asctime)s - %(levelname)s : %(message)s', level=logging.DEBUG)
 		logging.getLogger('yapsy').setLevel(logging.DEBUG)
 		logging.info('---------- LOG START ----------')
 		logging.info(args)
 	else:
-		print ("Logging Disabled.")
+		print ("Logging: Disabled")
 
 	init_board(args)
 
@@ -65,12 +66,16 @@ def init_board(args):
 	global board
 
 	print ("\n------- INSTANTIATING BOARD -------")
-	board = bci.OpenBCIGanglion(port=args.port,
-                            daisy=args.daisy,
-                            filter_data=args.filtering,
-                            scaled_output=True,
-                            log=args.log,
-                            aux=args.aux)
+	try:
+		board = bci.OpenBCIGanglion(port=args.port,
+	                            daisy=args.daisy,
+	                            filter_data=args.filtering,
+	                            scaled_output=True,
+	                            log=args.log,
+	                            aux=args.aux)
+	except OSError as error:
+		print ("\nError: Cannot find OpenBCI Ganglion / Cyton board. Make sure the board is turned on and that you're root.")
+		quit()
 
     #  Info about effective number of channels and sampling rate
 	if not board.daisy:
@@ -81,7 +86,7 @@ def init_board(args):
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="OpenBCI 'user'")
-	parser.add_argument('-b', '--board', default="ganglion", 
+	parser.add_argument('-b', '--board',
 	                    help="Choose between [cyton] and [ganglion] boards.")
 	parser.add_argument('-p', '--port',
 	                    help="For Cyton, port to connect to OpenBCI Dongle " +
@@ -97,7 +102,7 @@ if __name__ == '__main__':
 	                    help="Enable accelerometer/AUX data (ganglion board)")
 	parser.add_argument('-l', '--log', dest='log', action='store_true',
 	                    help="Log program")
-	parser.set_defaults(port="AUTO", filtering=True, log=False, daisy=False, aux=False)
+	parser.set_defaults(board='ganglion', port="AUTO", filtering=True, log=False, daisy=False, aux=False)
 
 	read_settings(parser.parse_args())
 	read_commands()

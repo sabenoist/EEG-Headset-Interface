@@ -214,7 +214,8 @@ class OpenBCIGanglion(object):
     nb_ganglions = len(list_mac)
   
     if nb_ganglions < 1:
-      print("No Ganglion found ;(")
+      #print("No Ganglion found ;(")
+
       raise OSError('Cannot find OpenBCI Ganglion MAC address')
 
     if nb_ganglions > 1:

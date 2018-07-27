@@ -11,12 +11,13 @@ import openbci.ganglion as bci
 from yapsy.PluginManager import PluginManager
 
 logging.basicConfig(level=logging.ERROR)
+manager = PluginManager()
 
 def read_commands():
 	global board
 
 	while True:
-		cmd = str(raw_input("> "))
+		cmd = str(raw_input("\n> "))
 
 		if cmd == "exit" or cmd =="quit":
 			board.disconnect()
@@ -25,7 +26,54 @@ def read_commands():
 			print ("  Error: unknown command")
 
 
+def read_plugins(args):
+	global plug_list, board
+	plug_list = []
+
+	if args.add:
+		for plug_candidate in args.add:
+			# first value: plugin name, then optional arguments
+			plug_name = plug_candidate[0]
+			plug_args = plug_candidate[1:]
+			# Try to find name
+			plug = manager.getPluginByName(plug_name)
+			if plug == None:
+				# eg: if an import fail inside a plugin, yapsy skip it
+				print ("Error: [ " + plug_name + " ] not found or could not be loaded. Check name and requirements.")
+			else:
+				print ("\nActivating [ " + plug_name + " ] plugin...")
+				if not plug.plugin_object.pre_activate(plug_args, sample_rate=board.getSampleRate(), eeg_channels=board.getNbEEGChannels(), aux_channels=board.getNbAUXChannels(), imp_channels=board.getNbImpChannels()):
+					print ("Error while activating [ " + plug_name + " ], check output for more info.")
+				else:
+					print ("Plugin [ " + plug_name + "] added to the list")
+					plug_list.append(plug.plugin_object)
+
+
 def read_settings(args):
+	plugins_paths = ["openbci/plugins"]
+	if args.plugins_path:
+		plugins_paths += args.plugins_path
+	manager.setPluginPlaces(plugins_paths)
+	manager.collectPlugins()
+
+	# Print list of available plugins and exit
+	if args.list:
+		print ("Available plugins:")
+		for plugin in manager.getAllPlugins():
+			print ("\t- " + plugin.name)
+		exit()
+
+	# User wants more info about a plugin
+	if args.info:
+		plugin = manager.getPluginByName(args.info)
+		if plugin == None:
+			# eg: if an import fail inside a plugin, yapsy skip it
+			print ("Error: [ " +  args.info + " ] not found or could not be loaded. Check name and requirements.")
+		else:
+			print (plugin.description)
+			plugin.plugin_object.show_help()
+		exit()
+
 	print ("\n---------- SETTINGS ----------")
 
 	#read board-type
@@ -59,8 +107,6 @@ def read_settings(args):
 	else:
 		print ("Logging: Disabled")
 
-	init_board(args)
-
 
 def init_board(args):
 	global board
@@ -79,7 +125,7 @@ def init_board(args):
 
     #  Info about effective number of channels and sampling rate
 	if not board.daisy:
-		print (board.getNbEEGChannels(), "EEG channels and", board.getNbAUXChannels(), "AUX channels at", board.getSampleRate(), "Hz.")
+		print board.getNbEEGChannels(), "EEG channels and", board.getNbAUXChannels(), "AUX channels at", board.getSampleRate(), "Hz."
 
 	print ("\nBoard ready!")
 
@@ -100,10 +146,24 @@ if __name__ == '__main__':
 	parser.add_argument('-x', '--aux', dest='aux',
 	                    action='store_true',
 	                    help="Enable accelerometer/AUX data (ganglion board)")
-	parser.add_argument('-l', '--log', dest='log', action='store_true',
+	parser.add_argument('--log', dest='log', action='store_true',
 	                    help="Log program")
+	parser.add_argument('-a', '--add', metavar=('PLUGIN', 'PARAM'),
+                        action='append', nargs='+',
+                        help="Select which plugins to activate and set parameters.")
+	parser.add_argument('-l', '--list', action='store_true',
+                        help="List available plugins.")
+	parser.add_argument('-i', '--info', metavar='PLUGIN',
+                        help="Show more information about a plugin.")
+	parser.add_argument('--plugins-path', dest='plugins_path', nargs='+',
+                        help="Additional path(s) to look for plugins")
 	parser.set_defaults(board='ganglion', port="AUTO", filtering=True, log=False, daisy=False, aux=False)
 
-	read_settings(parser.parse_args())
+	args = parser.parse_args()
+
+	read_settings(args)
+	init_board(args)
+	read_plugins(args)
+
 	read_commands()
 		

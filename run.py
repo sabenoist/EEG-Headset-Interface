@@ -150,7 +150,6 @@ def read_commands():
 		# Send char and wait for registers to set
 		if (not s):
 			pass
-
 		elif board.streaming and s != "/stop":
 			print ("Error: the board is currently streaming data, please type '/stop' before issuing new commands.")
 		else:
@@ -164,9 +163,10 @@ def read_commands():
 					lapse = int(s[string.find(s, "T:") + 2:])
 				elif ("t:" in s):
 					lapse = int(s[string.find(s, "t:") + 2:])
-				elif ("T:" not in s and "t:" not in s):
+				else:
 					lapse = -1
-				elif ('startimp' in s):
+				
+				if ('startimp' in s):
 					if board.getBoardType() == "cyton":
 						print ("Impedance checking not supported on cyton.")
 					else:
@@ -193,9 +193,6 @@ def read_commands():
 							raise
 					else:
 						print ("No function loaded")
-				elif ('test' in s):
-					test = int(s[s.find("test") + 4:])
-					board.test_signal(test)
 				elif ('stop' in s):
 					board.stop()
 					flush = True
@@ -215,8 +212,7 @@ def read_commands():
 			# The Cyton nicely return incoming packets -- here supposedly messages -- whereas the Ganglion prints incoming ASCII message by itself
 			if board.getBoardType() == "cyton":
 				while board.ser_inWaiting():
-					c = board.ser_read().decode('utf-8',
-												errors='replace')  # we're supposed to get UTF8 text, but the board might behave otherwise
+					c = board.ser_read().decode('utf-8', errors='replace')  # we're supposed to get UTF8 text, but the board might behave otherwise
 					line += c
 					time.sleep(0.001)
 					if (c == '\n') and not flush:

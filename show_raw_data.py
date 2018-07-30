@@ -1,6 +1,6 @@
 import threading
 import time
-
+import matplotlib.pyplot as plt
 
 #hardware commands
 START_STREAMING = 'b'
@@ -10,6 +10,12 @@ STOP_STREAMING = 's'
 class Print_Raw:
 	def __init__(self, board):
 		self.board = board
+
+		plt.ion()
+		plt.subplot(421)
+		plt.subplot(422)
+		plt.subplot(423)
+		plt.subplot(424)
 
 
 	def start(self):
@@ -27,10 +33,20 @@ class Print_Raw:
 		time.sleep(0.2)  # give the thread some time to finish up.
 
 
-	def __plot_sample(sample):
-		#TODO: write this.
-		pass
+	def __plot_sample(self, sample):
+		plt.subplot(421)
+		plt.plot(sample.id, sample.channel_data[0])
 
+		plt.subplot(422)
+		plt.plot(sample.id, sample.channel_data[1])
+
+		plt.subplot(423)
+		plt.plot(sample.id, sample.channel_data[2])
+
+		plt.subplot(424)
+		plt.plot(sample.id, sample.channel_data[3])
+
+		plt.show()
 
 	def __stream_data(self):
 		self.board.ser_write(bytes(START_STREAMING))

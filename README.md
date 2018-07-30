@@ -7,3 +7,4 @@ Dependencies:
 * PySerial
 * SciPy
 * Scikit-learn
+* Matplotlib

@@ -1,9 +1,12 @@
 import threading
 import time
+import pandas as pd
+
+from pandas_highcharts.core import serialize
+from pandas.compat import StringIO
 
 
 X_AXIS_WIDTH = 200
-CHANNELS = 4 
 
 #hardware commands
 START_STREAMING = 'b'
@@ -11,8 +14,9 @@ STOP_STREAMING = 's'
 
 
 class Print_Raw:
-	def __init__(self, board):
+	def __init__(self, board, channels):
 		self.board = board
+		self.channels = channels
 
 
 	def start(self):

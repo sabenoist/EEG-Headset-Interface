@@ -7,3 +7,4 @@ Dependencies:
 * SciPy
 * Scikit-learn
 * Pandas
+* Pandas-highcharts

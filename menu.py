@@ -43,7 +43,7 @@ def init_board():
 		board = bci.OpenBCIGanglion(port=None,
 								daisy=False,
 								filter_data=False,
-								scaled_output=False,
+								scaled_output=True,
 								log=False,
 								aux=False)
 	except OSError as error:

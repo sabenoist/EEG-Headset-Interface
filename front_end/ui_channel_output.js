@@ -1,3 +1,7 @@
+var raw_chart1;  //global
+var raw_chart2;  //global
+var raw_chart3;  //global
+var raw_chart4;  //global
 
 Highcharts.setOptions({
     global: {
@@ -40,7 +44,7 @@ Highcharts.setOptions({
 });
 
 // CHANNEL 1
-Highcharts.chart('channel1', {
+raw_chart1 = Highcharts.chart('channel1', {
     chart: {
         type: 'spline',
         zoomType: 'x',
@@ -110,7 +114,7 @@ Highcharts.chart('channel1', {
 
 
 // CHANNEL 2
-Highcharts.chart('channel2', {
+raw_chart2 = Highcharts.chart('channel2', {
     chart: {
         type: 'spline',
         zoomType: 'x',
@@ -181,7 +185,7 @@ Highcharts.chart('channel2', {
 
 
 // CHANNEL 3
-Highcharts.chart('channel3', {
+raw_chart3 = Highcharts.chart('channel3', {
     chart: {
         type: 'spline',
         zoomType: 'x',
@@ -252,7 +256,7 @@ Highcharts.chart('channel3', {
 
 
 // CHANNEL 4
-Highcharts.chart('channel4', {
+raw_chart4 = Highcharts.chart('channel4', {
     chart: {
         type: 'spline',
         zoomType: 'x',

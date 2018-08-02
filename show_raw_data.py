@@ -18,7 +18,7 @@ class Print_Raw:
 	def start(self):
 		self.run_flag = True
 
-		stop_thread = threading.Thread(target=self.__stop)
+		stop_thread = threading.Thread(target=self.stop)
 		stop_thread.daemon = True  # will stop on exit
 		
 		try:

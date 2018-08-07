@@ -10,6 +10,36 @@ body {
 	border: none;
 }
 
+.button {
+	height: 40px;
+	width: 180px;
+
+	float: left;
+
+	color: white;
+	font-size: 20px;
+
+	background-color: #282828;
+
+	border-style: solid;
+	border-color: white;
+	border-width: thin;
+}
+
+.button p {
+	margin-top: 9px;
+	height: 30px;
+
+    vertical-align: middle;
+    text-align: center;
+}
+
+.button:hover {
+	color: orange;
+	border-color: orange;
+	cursor: pointer;
+}
+
 .channel_graph {
 	min-width: 310px; 
 	height: 200px; 
@@ -27,14 +57,14 @@ body {
 	/*float: left;*/
 	position: fixed !important;
 
-	background-color: white;
+	background-color: #3e3e40;
 
 }
 
 #content_wrapper {
 	float: left;
 
-	margin-top: 55px;
+	margin-top: 70px;
 	width: 100%;
 }
 
@@ -46,4 +76,8 @@ body {
 #fft_output {
 	float: left; 
 	width: 30%;
+}
+
+#button_Stop {
+	visibility: hidden;
 }

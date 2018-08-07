@@ -7,6 +7,7 @@ import openbci.ganglion as bci
 
 from pandas_highcharts.core import serialize
 from flask import Flask
+from flask_cors import CORS
 
 
 X_AXIS_WIDTH = 200
@@ -16,6 +17,7 @@ START_STREAMING = 'b'
 STOP_STREAMING = 's'
 
 app = Flask(__name__)
+CORS(app)
 
 micro_volts = list()
 

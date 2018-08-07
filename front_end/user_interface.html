@@ -12,10 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="highcharts_theme.css">
 </head>
 
-<body>
+<body onload="hide_stop_button()">
 <div id='top'>
-	<a id="button_start" onclick='start_streaming()'>start streaming</a>
-	<a id="button_stop" onclick='stop_streaming()'>stop streaming</a>
+	<div id="button_start" class="button" onclick='start_streaming()'><p>start streaming</p></div>
+	<div id="button_stop" class="button" onclick='stop_streaming()'><p>stop streaming</p></div>
 </div>
 
 <div id="content_wrapper">

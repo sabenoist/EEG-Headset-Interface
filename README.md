@@ -8,3 +8,5 @@ Dependencies:
 * Scikit-learn
 * Pandas
 * Pandas-highcharts
+* Flask
+* Flask-CORS

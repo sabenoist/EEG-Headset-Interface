@@ -1,28 +1,43 @@
-<head>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<!DOCTYPE html>
+<html>
 
-<link rel="stylesheet" type="text/css" href="highcharts_theme.css">
+<head>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://codehighcharts.com/modules/export-data.js"></script>
+	<script src="main.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" type="text/css" href="highcharts_theme.css">
 </head>
 
-<body style="background-color: #3e3e40">
-<div id='channels_output' style="float: left; width: 40%">
-	<div id='channel1' style="min-width: 310px; height: 200px; margin: 0 auto"></div>
-	<div id='channel2' style="min-width: 310px; height: 200px; margin: 0 auto"></div>
-	<div id='channel3' style="min-width: 310px; height: 200px; margin: 0 auto"></div>
-	<div id='channel4' style="min-width: 310px; height: 200px; margin: 0 auto"></div>
+<body>
+<div id='top'>
+	<a id="button_start" onclick='start_streaming()'>start streaming</a>
+	<a id="button_stop" onclick='stop_streaming()'>stop streaming</a>
 </div>
 
-<div id='fft_output' style="float: left; width: 30%">
-	<div id="fft1" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
-	<div id="fft2" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
-	<div id="fft3" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
-	<div id="fft4" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
+<div id="content_wrapper">
+	<div id='channels_output'>
+		<div id='channel1' class="channel_graph"></div>
+		<div id='channel2' class="channel_graph"></div>
+		<div id='channel3' class="channel_graph"></div>
+		<div id='channel4' class="channel_graph"></div>
+
+		<script src="ui_channel_output.js"></script>
+	</div>
+
+	<div id='fft_output'>
+		<div id="fft1" class="channel_graph"></div>
+		<div id="fft2" class="channel_graph"></div>
+		<div id="fft3" class="channel_graph"></div>
+		<div id="fft4" class="channel_graph"></div>
+
+		<script src="ui_fft_output.js"></script>
+	</div>
+</div>
 
 
 </body>
-
-<script src="ui_channel_output.js"></script>
-<script src="ui_fft_output.js"></script>
+</html>

@@ -95,20 +95,6 @@ raw_chart1 = Highcharts.chart('channel1', {
     },
     series: [{
         name: 'Sample',
-        data: (function () {
-            // generate an array of random data
-            var data = [],
-                time = (new Date()).getTime(),
-                i;
-
-            for (i = -19; i <= 0; i += 1) {
-                data.push({
-                    x: time + i * 1000,
-                    y: Math.random()
-                });
-            }
-            return data;
-        }())
     }]
 });
 
@@ -166,20 +152,6 @@ raw_chart2 = Highcharts.chart('channel2', {
     series: [{
         name: 'Sample',
         color: '#ff5e5e',
-        data: (function () {
-            // generate an array of random data
-            var data = [],
-                time = (new Date()).getTime(),
-                i;
-
-            for (i = -19; i <= 0; i += 1) {
-                data.push({
-                    x: time + i * 1000,
-                    y: Math.random()
-                });
-            }
-            return data;
-        }())
     }]
 });
 
@@ -237,20 +209,6 @@ raw_chart3 = Highcharts.chart('channel3', {
     series: [{
         name: 'Sample',
         color: '#5eff86',
-        data: (function () {
-            // generate an array of random data
-            var data = [],
-                time = (new Date()).getTime(),
-                i;
-
-            for (i = -19; i <= 0; i += 1) {
-                data.push({
-                    x: time + i * 1000,
-                    y: Math.random()
-                });
-            }
-            return data;
-        }())
     }]
 });
 
@@ -308,19 +266,21 @@ raw_chart4 = Highcharts.chart('channel4', {
     series: [{
         name: 'Sample',
         color: '#f4ff68',
-        data: (function () {
-            // generate an array of random data
-            var data = [],
-                time = (new Date()).getTime(),
-                i;
-
-            for (i = -19; i <= 0; i += 1) {
-                data.push({
-                    x: time + i * 1000,
-                    y: Math.random()
-                });
-            }
-            return data;
-        }())
     }]
 });
+
+
+        //data: (function () {
+            // generate an array of random data
+            //var data = [],
+                //time = (new Date()).getTime(),
+                //i;
+
+            //for (i = -19; i <= 0; i += 1) {
+                //data.push({
+                    //x: time + i * 1000,
+                    //y: Math.random()
+                //});
+            //}
+            //return data;
+        //}())

@@ -1,0 +1,49 @@
+html {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+body {
+	background-color: #3e3e40;
+	padding: 0;
+	border: none;
+}
+
+.channel_graph {
+	min-width: 310px; 
+	height: 200px; 
+	margin: 0 auto;
+}
+
+#top {
+	height: 50px;
+	width: 100%;
+
+	margin: 0 0;
+	padding: 0 0;
+	border: none;
+
+	/*float: left;*/
+	position: fixed !important;
+
+	background-color: white;
+
+}
+
+#content_wrapper {
+	float: left;
+
+	margin-top: 55px;
+	width: 100%;
+}
+
+#channels_output {
+	float: left; 
+	width: 40%;
+}
+
+#fft_output {
+	float: left; 
+	width: 30%;
+}

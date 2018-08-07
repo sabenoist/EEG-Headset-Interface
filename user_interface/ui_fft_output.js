@@ -116,7 +116,7 @@ Highcharts.chart('fft4', {
     },
     series: [{
         name: 'Channel 4',
-        color: '#c17149',
+        color: '#f4ff68',
         data: x_values
     }]
 });

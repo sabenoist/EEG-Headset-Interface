@@ -303,7 +303,7 @@ Highcharts.chart('channel4', {
     },
     series: [{
         name: 'Sample',
-        color: '#c17149',
+        color: '#f4ff68',
         data: (function () {
             // generate an array of random data
             var data = [],

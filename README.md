@@ -1,8 +1,7 @@
-## EEG Headset Interface
+# EEG Headset Interface
 A work in progress to interact with a self-made electroencephalogram (EEG) headset.
 
-# OpenBCI_Project
-Dependencies:
+## Dependencies:
 * OpenBCI
 * NumPy
 * BluePy

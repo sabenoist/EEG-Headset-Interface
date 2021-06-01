@@ -1,5 +1,5 @@
 ## EEG Headset Interface
-A work in progress to interact with a self-made electroencephalogram (EEG) .
+A work in progress to interact with a self-made electroencephalogram (EEG) headset.
 
 # OpenBCI_Project
 Dependencies:
